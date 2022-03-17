@@ -4,12 +4,29 @@ import './App.css';
 import { withAuthenticator } from '@aws-amplify/ui-react'
 
 function App() {
+  const components = {
+    Header,
+    SignIn: {
+      Header: SignInHeader,
+      Footer: SignInFooter
+    },
+    Footer
+  };
+  
   return (
     <div className="App">
       <header>
         <img src={logo} className="App-logo" alt="logo" />
         <h1>We now have Auth!</h1>
       </header>
+      <Authenticator components={components}>
+          {({ signOut, user }) => (
+            <main>
+              <h1>Hello {user.username}</h1>
+              <button onClick={signOut}>Sign out</button>
+            </main>
+          )}
+        </Authenticator>
     </div>
   );
 }
